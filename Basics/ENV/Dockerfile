@@ -4,5 +4,5 @@ ENV STUDENT="VIJAY" \
 CMD ["sleep" , "2000"]
 
 # ENV values can be overridden 
-# docker run -d -e COURSE=DOCKER -name env <imageid> 
+# docker run -d -e COURSE=DOCKER --name env <imageid> 
 # -e means environment 
