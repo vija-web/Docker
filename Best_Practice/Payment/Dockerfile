@@ -24,7 +24,7 @@ ENV CART_HOST="cart" \
     AMQP_HOST="rabbitmq" \
     AMQP_USER="roboshop" \
     AMQP_PASS="roboshop123"
-COPY --from=builder /opt/server /opt/server
+COPY --from=build /opt/server /opt/server
 RUN chown -R roboshop:roboshop /opt/server
 USER roboshop
 ENTRYPOINT ["uwsgi" , "--ini" , "payment.ini"]
