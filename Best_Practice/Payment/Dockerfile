@@ -11,7 +11,7 @@ RUN apk add --no-cache \
     python3-dev \
     build-base \
     pcre-dev
-RUN pip3 install -r requirements.txt
+RUN pip3 install --prefix=/install -r requirements.txt
 
 # ------------------------------------------------------
 
@@ -32,6 +32,7 @@ ENV CART_HOST="cart" \
     AMQP_USER="roboshop" \
     AMQP_PASS="roboshop123"
 COPY --from=build /opt/server /opt/server
+COPY --from=build /install /usr/local
 RUN chown -R roboshop:roboshop /opt/server
 USER roboshop
 ENTRYPOINT ["uwsgi" , "--ini" , "payment.ini"]
