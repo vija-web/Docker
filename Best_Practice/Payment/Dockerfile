@@ -22,7 +22,8 @@ LABEL project="Roboshop" \
       created_by="vijay" \
       contact="vijayanthony28667@gmail.com"
 WORKDIR /opt/server
-RUN addgroup -S roboshop && \
+RUN apk add --no-cache pcre && \
+    addgroup -S roboshop && \
     adduser -S roboshop -G roboshop
 ENV CART_HOST="cart" \
     CART_PORT="8080" \
