@@ -1,58 +1,58 @@
 services: # here service means container
   catalogue:
     build: ./Catalogue
-    image: catalogue:v1
+    image: vijaykammari/catalogue:v1
     container_name: catalogue
     depends_on:
       - mongodb
   mongodb:
     build: ./Mongodb
-    image: mongodb:v1
+    image: vijaykammari/mongodb:v1
     container_name: mongodb
     volumes:   # similar to docker run -v mongodb: /data/db
       - mongodb:/data/db
   mysql:
     build: ./Mysql
-    image: mysql:v1
+    image: vijaykammari/mysql:v1
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
   redis:
     build: ./Redis
-    image: redis:v1
+    image: vijaykammari/redis:v1
     container_name: redis
     volumes:
       - redis:/data
   rabbitmq:
     build: ./Rabbitmq
-    image: rabbitmq:v1
+    image: vijaykammari/rabbitmq:v1
     container_name: rabbitmq
     volumes:
       - rabbitmq:/var/lib/rabbitmq
   user:
     build: ./User
-    image: user:v1
+    image: vijaykammari/user:v1
     container_name: user
     depends_on:
       - mongodb
       - redis
   cart:
     build: ./Cart
-    image: cart:v1
+    image: vijaykammari/cart:v1
     container_name: cart
     depends_on:
       - redis
       - catalogue
   shipping:
     build: ./Shipping
-    image: shipping:v1
+    image: vijaykammari/shipping:v1
     container_name: shipping
     depends_on:
       - mysql
       - cart
   payment:
     build: ./Payment
-    image: payment:v1
+    image: vijaykammari/payment:v1
     container_name: payment
     depends_on:
       - rabbitmq
@@ -60,7 +60,7 @@ services: # here service means container
       - user
   frontend:
     build: ./Frontend
-    image: frontend:v1
+    image: vijaykammari/frontend:v1
     container_name: frontend
     ports:
       - "80:80"
