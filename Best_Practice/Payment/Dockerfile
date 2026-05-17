@@ -1,9 +1,15 @@
 # BUILD STAGE
-FROM python:3.9-alpine3.21 AS build
+FROM python:3.9 AS build
 WORKDIR /opt/server
 COPY payment.ini .
 COPY *.py .
 COPY requirements.txt .
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    linux-headers \
+    python3-dev \
+    build-base
 RUN pip3 install -r requirements.txt
 
 # ------------------------------------------------------
