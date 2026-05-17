@@ -33,6 +33,7 @@ ENV CART_HOST="cart" \
     AMQP_PASS="roboshop123"
 COPY --from=build /opt/server /opt/server
 COPY --from=build /install /usr/local
-RUN chown -R roboshop:roboshop /opt/server
+RUN chown -R roboshop:roboshop /opt/server && \
+    chmod +x /usr/local/bin/uwsgi
 USER roboshop
 ENTRYPOINT ["uwsgi" , "--ini" , "payment.ini"]
