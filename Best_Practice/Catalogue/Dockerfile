@@ -1,0 +1,24 @@
+# BUILD STAGE
+FROM node:20.19.5-alpine3.21 AS build
+WORKDIR /opt/server
+COPY package.json .
+COPY *.js .
+RUN npm install
+
+# ------------------------------------------------
+
+FROM node:20.19.5-alpine3.21
+EXPOSE 8080
+LABEL project="Roboshop" \
+      component="Catalogue" \
+      created_by="vijay" \
+      contact="vijayanthony28667@gmail.com"
+WORKDIR /opt/server
+RUN addgroup -S roboshop && \
+    adduser -S roboshop -G roboshop
+ENV MONGO="true" \
+    MONGO_URL="mongodb://mongodb:27017/catalogue"
+COPY --from=build /opt/server /opt/server
+RUN chown -R roboshop:roboshop /opt/server
+USER roboshop
+ENTRYPOINT ["node" , "server.js"]
